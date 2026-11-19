@@ -229,10 +229,12 @@
     const n = GIFT.days.filter(x => opened.has(x.d) && x.d <= t).length;
     $("stage").src = n >= 12 ? "assets/scarf.png" : n >= 8 ? "assets/flame3.png" : n >= 4 ? "assets/flame2.png" : "assets/flame1.png";
     const left = Math.max(0, 25 - t);
-    $("nights").textContent = t >= 25 ? "오늘" : (t < 14 ? 12 : left) + "밤";
-    $("nightsLabel").textContent = t >= 25 ? "메리 크리스마스" : "크리스마스까지";
+    // 첫 창(12월 14일 0시, 한국 시간)까지 남은 날
+    const wait = Math.max(1, Math.ceil((Date.UTC(GIFT.year, 11, 13, 15) - Date.now()) / 86400000));
+    $("nights").textContent = t >= 25 ? "오늘" : t < 14 ? wait + "일" : left + "밤";
+    $("nightsLabel").textContent = t >= 25 ? "메리 크리스마스" : t < 14 ? "첫 창까지" : "크리스마스까지";
     if (t < 14) {
-      $("statusTitle").textContent = "내일 밤부터 하나씩 열려요";
+      $("statusTitle").textContent = wait <= 1 ? "오늘 밤 12시에 첫 창이 열려요" : "아직은 모두 잠들어 있어요";
       $("statusSub").textContent = "12월 14일 밤 12시에 첫 번째 창이 열려요";
     } else if (n === 12) {
       $("statusTitle").textContent = "열두 밤을 모두 열었어요";
