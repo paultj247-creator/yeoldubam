@@ -155,11 +155,11 @@
   const API = "https://script.google.com/macros/s/AKfycbycLLIUftHpdpFSdSkWetdcImSmhytF2ATBIdR7V4Lj8Zu5F-AQnRivqqREFDRkpriz0A/exec";
   let GIFT = null, KEYNAME = "twelve-opened", CODE = "", KEY = "";
   const PHOTOS = {}, LOADING = {};
-  function api(extra){ return fetch(API + "?c=" + encodeURIComponent(CODE) + "&k=" + encodeURIComponent(KEY) + (extra || "")).then(r => r.json()); }
+  function api(extra){ return fetch(API + "?code=" + encodeURIComponent(CODE) + "&key=" + encodeURIComponent(KEY) + (extra || "")).then(r => r.json()); }
   function loadPhoto(d){
     if (PHOTOS[d] || LOADING[d]) return;
     LOADING[d] = true;
-    api("&p=" + d).then(j => { if (j.ok) { PHOTOS[d] = j.data; render(); if (lastDay === d && scrim.classList.contains("show")) fillPhoto(d); } })
+    api("&day=" + d).then(j => { if (j.ok) { PHOTOS[d] = j.data; render(); if (lastDay === d && scrim.classList.contains("show")) fillPhoto(d); } })
       .catch(() => {}).finally(() => { LOADING[d] = false; });
   }
   const EMPTY_MSG = "오늘 밤은 편지 대신\n촛불을 켜 둘게.\n내일 또 만나.";
