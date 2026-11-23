@@ -396,7 +396,7 @@
     }
     const m = location.hash.match(/^#([A-Za-z0-9]{6})\.([A-Za-z0-9]{8,})$/);
     if (!m) return fail("받은 링크를 끝까지 그대로 열어 줘.<br>주소 맨 뒤 # 부분까지 있어야 해.");
-    CODE = m[1].toUpperCase(); KEY = m[2]; KEYNAME = "twelve-opened-" + CODE;
+    CODE = m[1].toUpperCase(); KEY = m[2]; KEYNAME = "twelve-opened-" + CODE; $("panes").innerHTML = Array.from({ length: 12 }, (_, i) => '<span class="pane locked' + (i === 11 ? " xmas" : "") + '"><span class="d">' + (14 + i) + "</span></span>").join("");
     let j;
     try { j = await api(""); } catch (e) { return fail("인터넷 연결을 확인하고<br>다시 열어 줘."); }
     if (!j || !j.ok) return fail("링크를 끝까지 그대로 열어 줘.<br>안 되면 보낸 사람에게 알려 줘.");
