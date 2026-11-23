@@ -492,7 +492,7 @@
 
   const orderBtn = $("orderBtn");
   // 주문서의 '상품' 칸을 미리 골라 두려면 PRODUCT_ENTRY에 entry 번호를 넣어요 (예: "entry.123456789")
-  const PRODUCT_ENTRY = "";
+  const PRODUCT_ENTRY = "entry.159311427";
   const KINDS = { text: { label: "글만 · 3,900원", btn: "글만 선물하기 · 3,900원" }, photo: { label: "사진 포함 · 5,900원", btn: "사진과 함께 선물하기 · 5,900원" } };
   function syncOrder(){
     const k = (document.querySelector('input[name="kind"]:checked') || {}).value || "photo";
