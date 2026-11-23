@@ -170,6 +170,80 @@
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
   @keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}
   @media (prefers-reduced-motion:reduce){.pane.next::after{animation:none}}
+
+  /* 선물하기 */
+  .gift{background:#2a1408 url(assets/art/room.jpg) top center/cover no-repeat;text-align:center}
+  .gift .wrap{max-width:480px}
+  .g-kicker{font-family:"Gowun Batang",serif;font-size:16px;color:#e2cfae;padding-bottom:14px;border-bottom:1px solid rgba(226,207,174,.25)}
+  .g-title{font-family:"Gowun Batang",serif;font-weight:400;font-size:clamp(26px,7.4vw,34px);color:#f4e3c4;margin-top:22px;text-shadow:0 2px 14px rgba(0,0,0,.55)}
+  .g-sub{color:#e2cfae;margin-top:6px}
+  .g-bow{display:flex;align-items:center;gap:10px;margin:10px auto 0;width:70%}
+  .g-bow i,.g-holly i{flex:1;height:1px;background:rgba(226,207,174,.4)}
+  .g-bow img{width:46px}
+  .g-preview{display:block;margin-top:16px;border-radius:18px;overflow:hidden;box-shadow:0 24px 50px -24px rgba(0,0,0,.8);outline:1px solid rgba(226,207,174,.15)}
+  .g-preview img{display:block;width:100%;height:auto}
+  .g-peek{display:inline-flex;align-items:center;gap:8px;margin-top:18px;min-height:46px;padding:0 22px;border:1px solid rgba(226,207,174,.55);border-radius:99px;color:#f1e2c6;text-decoration:none;font-size:15px}
+  .g-peek svg{width:20px;height:20px}
+  .g-peek:hover{background:rgba(255,240,210,.06)}
+  .g-card{margin-top:22px;background:#f6f0e4 url(assets/art/paper.jpg) repeat;background-size:540px;color:#3a2214;border-radius:22px;padding:26px 18px 22px;box-shadow:0 24px 50px -24px rgba(0,0,0,.8);text-shadow:none}
+  .g-card h3{font-family:"Gowun Batang",serif;font-size:clamp(22px,6.4vw,28px);font-weight:700}
+  .g-holly{display:flex;align-items:center;gap:10px;margin:8px 10% 0}
+  .g-holly i{background:#cdb995}
+  .g-holly img{width:38px}
+  .g-opts{border:0;margin-top:14px;display:grid;gap:12px}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .g-opt{position:relative;display:flex;align-items:center;gap:14px;text-align:left;padding:16px 18px;border:1px solid #d8c6a4;border-radius:14px;cursor:pointer;background:rgba(255,253,247,.35);transition:border-color .2s,background .2s}
+  .g-opt input{position:absolute;opacity:0;pointer-events:none}
+  .g-opt .dot{width:24px;height:24px;border-radius:50%;border:2px solid #9b7a5a;flex-shrink:0;display:grid;place-items:center}
+  .g-opt input:checked + .dot::after{content:"";width:12px;height:12px;border-radius:50%;background:#5f321c}
+  .g-opt input:checked + .dot{border-color:#5f321c}
+  .g-opt:has(input:checked){border-color:#8a5a3a;background:rgba(255,253,247,.7)}
+  .g-opt input:focus-visible + .dot{outline:2px solid #b3412f;outline-offset:3px}
+  .g-opt .nm{flex:1}
+  .g-opt b{display:block;font-family:"Gowun Batang",serif;font-size:19px}
+  .g-opt small{font-size:13px;color:#6f5640}
+  .g-opt .pr{font-family:"Gowun Batang",serif;font-weight:700;font-size:18px}
+  .g-note{font-size:13px;color:#6f5640;margin-top:16px;line-height:1.6}
+  .g-due{font-size:14px;margin-top:10px;color:#3a2214}
+  .g-due b{color:#a3352a}
+  .g-buy{display:flex;align-items:center;justify-content:center;min-height:58px;margin-top:14px;border-radius:16px;background:linear-gradient(180deg,#7a4428,#5f321c);color:#fbf1dc;text-decoration:none;font-family:"Gowun Batang",serif;font-size:18px;box-shadow:0 10px 22px -12px rgba(60,25,8,.9)}
+  .g-buy:active{transform:translateY(1px)}
+  .g-buy[aria-disabled="true"]{background:#bfae93;color:#efe6d6;cursor:not-allowed}
+  .g-pay{font-size:12px;color:#7a604a;margin-top:12px;line-height:1.5}
+
+  /* 받는 사람 화면과 같은 창문 (새 디자인) */
+  .frame{padding:12px 12px 13px;border-radius:50% 50% 6px 6px/36px 36px 6px 6px;background:linear-gradient(180deg,#8a4d26,#6a3517 40%,#5a2c12);
+    box-shadow:inset 0 0 0 5px #7a4220,inset 0 0 0 6px #4a220c,0 24px 40px -18px rgba(0,0,0,.7),0 0 0 1.5px #3c1b09}
+  .transom{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;height:30px;margin-bottom:6px}
+  .transom span{position:relative;overflow:hidden;background:linear-gradient(#0b1020,#151b2e);border-radius:50% 50% 0 0/24px 24px 0 0}
+  .transom span:first-child{border-radius:100% 0 0 0/28px 0 0 0}
+  .transom span:last-child{border-radius:0 100% 0 0/0 28px 0 0}
+  .panes{gap:6px;background:none;padding:0}
+  .pane{aspect-ratio:3/4.2;border-radius:2px;justify-content:flex-start;padding:10px 0 0;color:#efe6d6;
+    background:radial-gradient(1px 1px at 22% 30%,#fff9 98%,transparent),radial-gradient(1px 1px at 70% 18%,#fff8 98%,transparent),radial-gradient(1.4px 1.4px at 84% 48%,#fffa 98%,transparent),
+      var(--pine,none) no-repeat center bottom/100% 58%,linear-gradient(180deg,#0a0f1f,#141a2c 70%,#1b2236)}
+  .pane:nth-child(4n+1){--pine:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Cpath d='M18 60 30 22l12 38zM60 60l10-30 10 30z' fill='%23233049' opacity='.8'/%3E%3C/svg%3E")}
+  .pane:nth-child(4n+2){--pine:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Cpath d='M55 60 72 14l17 46z' fill='%23233049' opacity='.85'/%3E%3C/svg%3E")}
+  .pane:nth-child(4n+3){--pine:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Cpath d='M8 60 20 30l12 30zM40 60l14-38 14 38z' fill='%23233049' opacity='.75'/%3E%3C/svg%3E")}
+  .pane:nth-child(4n){--pine:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Cpath d='M60 60 78 6l18 54zM30 60l9-24 9 24z' fill='%23263451' opacity='.85'/%3E%3C/svg%3E")}
+  .pane:not(.lit)::before,.transom span::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;pointer-events:none;
+    background:radial-gradient(ellipse at 50% 100%,#eef2f7 0 55%,transparent 60%) 0 100%/14px 100% repeat-x,linear-gradient(transparent 55%,#dfe6ee 56%)}
+  .pane .d{font-weight:400;font-size:clamp(18px,5.4vw,24px)}
+  .pane .m{display:none}
+  .pane.xmas{box-shadow:none}
+  .pane.xmas .d{color:#efe6d6}
+  .pane .seal{position:absolute;right:6%;bottom:10%;width:38%;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6))}
+  .pane.next{background:radial-gradient(circle at 50% 58%,#ffe2a1 0,#f3ac4f 42%,#a95a1c 100%);box-shadow:0 0 0 1.5px #ffd27a,0 0 18px 4px rgba(255,180,80,.5)}
+  .pane.next::after{display:none}
+  .pane.next .d{color:#5a2c10}
+  .pane.next .env{width:70%;margin-top:6px;position:relative;z-index:1;filter:drop-shadow(0 2px 3px rgba(80,30,0,.45))}
+  .pane.next .tag{position:relative;z-index:1;margin-top:5px;font-size:10px;font-weight:700;color:#5a2c10;background:#fbf1dc;padding:2px 7px;border-radius:6px;white-space:nowrap}
+  .pane.lit{background:#f6f0e4 url(assets/art/paper.jpg) repeat;background-size:270px;padding:6px 6px 0}
+  .pane.lit::before{display:none}
+  .sill{height:14px;margin:0 -10px;background:linear-gradient(#a3622f,#6a3517);border-radius:3px}
+  .sheet{background:#f6f0e4 url(assets/art/paper.jpg) repeat;background-size:540px;border-radius:22px 22px 4px 4px}
+  .sheet .label{font-family:"Gowun Batang",serif;font-size:22px;color:var(--ink);text-align:center}
+  .close{background:linear-gradient(180deg,#7a4428,#5f321c);color:#fbf1dc;border-radius:14px;min-height:52px;font-family:"Gowun Batang",serif;font-weight:400;font-size:17px}
 </style>
 </head>
 <body>
@@ -195,7 +269,7 @@
       <p class="sub">받는 사람 화면이에요. 실제 선물은 그날 밤이 되어야 열리지만, 여기서는 전부 미리 볼 수 있어요.</p>
       <div class="demo">
         <div>
-          <div class="frame"><div class="panes" id="panes"></div></div>
+          <div class="frame"><div class="transom" aria-hidden="true"><span></span><span></span><span></span><span></span></div><div class="panes" id="panes"></div></div>
           <div class="sill"></div>
         </div>
         <div class="side">
@@ -207,8 +281,8 @@
             <button type="button" data-mode="text" aria-pressed="false">글만</button>
             <button type="button" data-mode="photo" aria-pressed="true">사진 포함</button>
           </div>
-          <p class="note">빨간 테두리 창은 크리스마스에 열리는 마지막 편지예요.</p>
-          <a class="cta" href="recipient.html#day-18" style="width:max-content;background:transparent;color:var(--gold);border:1px solid rgba(242,193,78,.5);min-height:46px;padding:10px 18px">받는 사람 화면 전체로 보기</a>
+          <p class="note">밀랍 봉인이 붙은 창은 크리스마스에 열리는 마지막 편지예요.</p>
+          <a class="cta" href="g/#demo-18-open" style="width:max-content;background:transparent;color:var(--gold);border:1px solid rgba(242,193,78,.5);min-height:46px;padding:10px 18px">받는 사람 화면 전체로 보기</a>
         </div>
       </div>
     </div>
@@ -251,15 +325,35 @@
     </div>
   </section>
 
-  <section id="order">
-    <div class="wrap order">
-      <div>
-        <h2>주문은 12월 13일까지</h2>
-        <a class="cta" id="orderBtn" href="#order" aria-disabled="true">주문서 준비 중</a>
-        <p class="prep"><b>주문서는 1분이면 끝나요</b> · 편지는 링크를 받은 뒤 천천히 써도 돼요.</p>
-        <p class="prep" id="payInfo"></p>
+  <section id="order" class="gift">
+    <div class="wrap">
+      <p class="g-kicker">열두 밤 선물하기</p>
+      <h2 class="g-title">이런 밤을 선물하게 돼요</h2>
+      <p class="g-sub">상대가 받게 될 화면이에요</p>
+      <div class="g-bow" aria-hidden="true"><i></i><img src="assets/art/ribbon.webp" alt=""><i></i></div>
+      <a class="g-preview" href="g/#demo-14" target="_blank" rel="noopener">
+        <img src="assets/art/preview.jpg" alt="받는 사람 화면: 나무 창틀 속 열두 칸 중 14일 칸에 불이 켜져 있어요" width="780" height="1238" loading="lazy">
+      </a>
+      <a class="g-peek" href="g/#demo-14" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+        받는 사람 화면 미리보기
+      </a>
+
+      <div class="g-card">
+        <h3>어떤 마음을 담을까요?</h3>
+        <div class="g-holly" aria-hidden="true"><i></i><img src="assets/art/holly.webp" alt=""><i></i></div>
+        <fieldset class="g-opts">
+          <legend class="sr">구성 고르기</legend>
+          <label class="g-opt"><input type="radio" name="kind" value="text"><span class="dot" aria-hidden="true"></span>
+            <span class="nm"><b>글만</b><small>편지 12통</small></span><span class="pr">3,900원</span></label>
+          <label class="g-opt"><input type="radio" name="kind" value="photo" checked><span class="dot" aria-hidden="true"></span>
+            <span class="nm"><b>사진과 함께</b><small>편지 12통 + 사진 12장</small></span><span class="pr">5,900원</span></label>
+        </fieldset>
+        <p class="g-note">사진 업로드 시 Google 로그인이 필요해요.<br>편지와 사진은 12월 31일에 삭제돼요.</p>
+        <p class="g-due">주문은 <b>12월 13일 밤 11시 59분</b>까지</p>
+        <a class="g-buy" id="orderBtn" href="#order" aria-disabled="true">주문서 준비 중</a>
+        <p class="g-pay" id="payInfo"></p>
       </div>
-      <div class="order-art"><img src="assets/scarf.png" alt="목도리를 두른 밤톨" width="360" height="626"></div>
     </div>
   </section>
 
@@ -350,7 +444,8 @@
       b.className = "pane" + (xmas ? " xmas" : "") + (lit ? " lit" : "") + (next ? " next" : "");
       b.setAttribute("aria-label", "12월 " + item.d + "일 창 " + (lit ? "다시 보기: " + titleOf(item) : "열기"));
       b.innerHTML = lit ? litHTML(item, i, mode === "photo")
-        : '<span class="d">' + item.d + '</span><span class="m">' + (next ? "열어보기" : xmas ? "Christmas" : "12월") + '</span>';
+        : next ? '<span class="d">' + item.d + '</span><img class="env" src="assets/art/env-closed.webp" alt=""><span class="tag">열어보기</span>'
+        : '<span class="d">' + item.d + '</span>' + (xmas ? '<img class="seal" src="assets/art/seal.webp" alt="">' : '');
       b.addEventListener("click", () => openDay(i));
       panes.appendChild(b);
     });
@@ -396,10 +491,19 @@
   });
 
   const orderBtn = $("orderBtn");
+  // 주문서의 '상품' 칸을 미리 골라 두려면 PRODUCT_ENTRY에 entry 번호를 넣어요 (예: "entry.123456789")
+  const PRODUCT_ENTRY = "";
+  const KINDS = { text: { label: "글만 · 3,900원", btn: "글만 선물하기 · 3,900원" }, photo: { label: "사진 포함 · 5,900원", btn: "사진과 함께 선물하기 · 5,900원" } };
+  function syncOrder(){
+    const k = (document.querySelector('input[name="kind"]:checked') || {}).value || "photo";
+    if (!ORDER_URL) return;
+    orderBtn.textContent = KINDS[k].btn;
+    orderBtn.href = PRODUCT_ENTRY ? ORDER_URL + "?usp=pp_url&" + PRODUCT_ENTRY + "=" + encodeURIComponent(KINDS[k].label) : ORDER_URL;
+  }
+  document.querySelectorAll('input[name="kind"]').forEach(r => r.addEventListener("change", syncOrder));
   if (ORDER_URL) {
-    orderBtn.href = ORDER_URL;
     orderBtn.removeAttribute("aria-disabled");
-    orderBtn.textContent = "열두 밤 주문하기";
+    syncOrder();
     orderBtn.target = "_blank";
     orderBtn.rel = "noopener";
   } else {

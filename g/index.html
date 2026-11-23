@@ -2,309 +2,405 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>열두 밤</title>
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#2c1307">
 <base href="/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/art/room.jpg">
 <style>
   :root{
-    --room:#24170f;--room-2:#2f1f14;
-    --wood:#8a5226;--wood-hi:#b9773e;--wood-lo:#5e3517;
-    --sky:#1c2850;--sky-2:#121a36;
-    --paper:#f7f0e2;--paper-2:#efe4cf;
-    --gold:#f2c14e;--berry:#b23a3a;
-    --ink:#2a2018;--muted:#7a6a58;
-    --text:#f3e9d6;--text-soft:#c9b79d;
-    --ease:cubic-bezier(.16,1,.3,1);
+    --wall:#2c1307; --ink:#3a2214; --ink-soft:#7a5a40; --cream:#f4e6cc; --gold:#f2c14e;
+    --berry:#a3352a; --brown:#6b3a22; --ease:cubic-bezier(.16,1,.3,1);
+    --paper:#f6f0e4 url(assets/art/paper.jpg) repeat;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{
-    font-family:"Noto Sans KR",system-ui,sans-serif;color:var(--text);line-height:1.6;word-break:keep-all;-webkit-font-smoothing:antialiased;
-    min-height:100dvh;
-    background:radial-gradient(120% 60% at 70% 0%,rgba(242,193,78,.16),transparent 60%),var(--room);
-  }
-  img{display:block;max-width:100%;height:auto}
-  :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
-  .app{max-width:480px;margin:0 auto;padding:26px 20px 40px}
+  html,body{background:#2a1408}
+  body{font-family:"Noto Sans KR",system-ui,sans-serif;color:var(--cream);word-break:keep-all;-webkit-font-smoothing:antialiased;min-height:100dvh}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
 
-  .head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-  .to{font-family:"Gowun Batang",serif;font-weight:700;font-size:30px;line-height:1.2;color:#fff;letter-spacing:-.03em}
-  .from{margin-top:4px;font-size:14px;color:var(--text-soft)}
-  .count{text-align:right;flex-shrink:0}
-  .count b{display:block;font-family:"Gowun Batang",serif;font-size:30px;line-height:1;color:var(--gold)}
-  .count span{font-size:12px;color:var(--text-soft)}
+  /* 장면: 방 배경 비율(1080×2400)을 그대로 두고, 그 위에 창문·글자를 퍼센트로 얹어요 */
+  .scene{position:relative;width:min(100%,480px);margin:0 auto;aspect-ratio:1080/2400;container-type:inline-size;
+    background:url(assets/art/room.jpg) top center/100% 100% no-repeat}
+  .demo-chip{position:absolute;top:1.6%;left:50%;transform:translateX(-50%);font-size:max(11px,2.8cqw);color:#2a1408;background:var(--gold);padding:.4em .9em;border-radius:99px;font-weight:700;white-space:nowrap}
 
-  .window{margin-top:26px}
-  .frame{padding:12px;border-radius:6px;background:linear-gradient(135deg,var(--wood-hi),var(--wood) 40%,var(--wood-lo));box-shadow:0 30px 50px -28px rgba(0,0,0,.85),inset 0 0 0 1px rgba(255,220,170,.15)}
-  .sill{height:16px;margin:0 -12px;border-radius:4px;background:linear-gradient(var(--wood-hi),var(--wood-lo));box-shadow:0 10px 18px -8px rgba(0,0,0,.7)}
-  .panes{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;background:var(--wood-lo);padding:7px;border-radius:3px}
-  .pane{
-    position:relative;aspect-ratio:4/5;border:0;cursor:pointer;font:inherit;color:#8e98b8;border-radius:2px;overflow:hidden;
-    background:radial-gradient(1px 1px at 22% 28%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 70% 18%,#fff 50%,transparent 51%),radial-gradient(1.2px 1.2px at 58% 52%,#fff 50%,transparent 51%),linear-gradient(var(--sky),var(--sky-2));
-    display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:7px;transition:transform .2s var(--ease)
-  }
+  .hd{position:absolute;top:5%;left:11%;right:8%}
+  .hd h1{font-family:"Gowun Batang",serif;font-weight:700;font-size:7.6cqw;line-height:1.2;color:#f7ead2;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+  .hd .row{display:flex;align-items:center;gap:3cqw;margin-top:1.4cqw;font-size:3.5cqw;color:#e2cfae}
+  .hd .row i{flex:1;height:1px;background:linear-gradient(90deg,rgba(226,207,174,.6),rgba(226,207,174,.2))}
+  .hd .row b{font-family:"Gowun Batang",serif;font-weight:400;letter-spacing:.02em}
+
+  .headline{position:absolute;top:12.3%;left:6%;right:6%;text-align:center;font-family:"Gowun Batang",serif;font-weight:400;
+    font-size:7.4cqw;line-height:1.32;color:#f4e3c4;text-shadow:0 2px 14px rgba(0,0,0,.55);min-height:19.6cqw;display:flex;align-items:center;justify-content:center}
+  .bow{position:absolute;top:21.2%;left:22%;right:22%;display:flex;align-items:center;gap:2cqw}
+  .bow i{flex:1;height:1px;background:rgba(226,207,174,.45)}
+  .bow img{width:11cqw;height:auto;filter:drop-shadow(0 2px 4px rgba(0,0,0,.4))}
+
+  /* 창문 */
+  .window{position:absolute;top:25.8%;bottom:30.7%;left:10.5%;right:10.5%;display:flex;flex-direction:column;
+    padding:3.2cqw 3.2cqw 3.4cqw;border-radius:40cqw 40cqw 1.2cqw 1.2cqw/9cqw 9cqw 1.2cqw 1.2cqw;
+    background:linear-gradient(180deg,#8a4d26,#6a3517 40%,#5a2c12);
+    box-shadow:inset 0 0 0 1.2cqw #7a4220,inset 0 0 0 1.5cqw #4a220c,0 6cqw 10cqw -4cqw rgba(0,0,0,.65),0 0 0 .4cqw #3c1b09}
+  .transom{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5cqw;height:7.5cqw;margin-bottom:1.5cqw}
+  .transom span{background:linear-gradient(#0b1020,#151b2e);border-radius:28cqw 28cqw 0 0/6cqw 6cqw 0 0;position:relative;overflow:hidden}
+  .transom span:first-child{border-radius:30cqw 0 0 0/7cqw 0 0 0}
+  .transom span:last-child{border-radius:0 30cqw 0 0/0 7cqw 0 0}
+  .transom span::after,.pane.locked::after,.pane.ready::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.6cqw;
+    background:radial-gradient(ellipse at 50% 100%,#eef2f7 0 55%,transparent 60%) 0 100%/4cqw 100% repeat-x,linear-gradient(transparent 55%,#dfe6ee 56%)}
+  .panes{flex:1;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:1.5cqw}
+
+  .pane{position:relative;overflow:hidden;border-radius:.6cqw;display:flex;flex-direction:column;align-items:center;
+    font-family:"Gowun Batang",serif;transition:transform .2s var(--ease)}
   .pane:active{transform:scale(.97)}
-  .pane .d{font-family:"Gowun Batang",serif;font-size:20px;font-weight:700;line-height:1}
-  .pane .m{font-size:10px;margin-top:3px;opacity:.8}
-  .pane.locked{filter:saturate(.7) brightness(.8)}
-  .pane.ready{color:#fff;box-shadow:inset 0 0 0 2px var(--gold)}
-  .pane.ready::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 75%,rgba(242,193,78,.45),transparent 65%);animation:breathe 2.4s ease-in-out infinite}
-  .pane.ready .m{color:var(--gold);opacity:1;font-weight:700;position:relative;z-index:1}
-  .pane.ready .d{position:relative;z-index:1}
-  .pane.xmas{box-shadow:inset 0 0 0 2px var(--berry)}
-  .pane.xmas.ready{box-shadow:inset 0 0 0 2px var(--gold)}
+  .pane .d{font-size:6.6cqw;line-height:1;margin-top:3.4cqw;color:#efe6d6;position:relative;z-index:1}
+  .pane.locked{background:
+      radial-gradient(1px 1px at 22% 30%,#fff9 98%,transparent),radial-gradient(1px 1px at 70% 18%,#fff8 98%,transparent),
+      radial-gradient(1px 1px at 52% 62%,#fff6 98%,transparent),radial-gradient(1.4px 1.4px at 84% 48%,#fffa 98%,transparent),
+      var(--pine) no-repeat center bottom/100% 58%,
+      linear-gradient(180deg,#0a0f1f,#141a2c 70%,#1b2236)}
+  .pane.locked .d{opacity:.92}
+  .pane.locked:nth-child(4n+1){--pine:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Cpath d='M18 60 30 22l12 38zM60 60l10-30 10 30z' fill='%23233049' opacity='.8'/%3E%3C/svg%3E")}
+  .pane.locked:nth-child(4n+2){--pine:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Cpath d='M55 60 72 14l17 46z' fill='%23233049' opacity='.85'/%3E%3C/svg%3E")}
+  .pane.locked:nth-child(4n+3){--pine:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Cpath d='M8 60 20 30l12 30zM40 60l14-38 14 38z' fill='%23233049' opacity='.75'/%3E%3C/svg%3E")}
+  .pane.locked:nth-child(4n){--pine:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Cpath d='M60 60 78 6l18 54zM30 60l9-24 9 24z' fill='%23263451' opacity='.85'/%3E%3C/svg%3E")}
+  .pane.locked.xmas .seal{position:absolute;right:6%;bottom:8%;width:40%;height:auto;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6));z-index:1}
 
-  /* 열린 창: 그날 내용이 보이는 종이 */
-  .pane.lit{background:#f4e7cf;color:var(--ink);justify-content:flex-start;align-items:stretch;padding:6px 6px 0;text-align:left}
-  .pane.lit::before{content:"";position:absolute;inset:0;background:radial-gradient(90% 55% at 85% 100%,rgba(242,193,78,.32),transparent 70%);pointer-events:none}
-  .pane.lit.xmas{background:#f6e2d8;box-shadow:inset 0 0 0 2px var(--berry)}
-  .pane.lit .d{position:relative;font-size:12px;color:#9a7b55;line-height:1}
-  .pane.lit .m{display:none}
-  .pane.lit .t{position:relative;z-index:1;font-family:"Nanum Pen Script",cursive;font-weight:400;font-size:clamp(14px,3.9vw,20px);line-height:1.05;color:var(--ink);margin-top:4px;word-break:keep-all;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:break-word;max-width:100%}
-  .pane.lit .who{position:absolute;right:-8%;bottom:-5%;width:40%;height:auto;animation:pop .45s var(--ease)}
-  .pane.lit .pol{position:relative;display:block;margin:auto;width:84%;background:#fffdf8;padding:3px 3px 0;box-shadow:0 3px 6px -2px rgba(60,35,10,.4);transform:rotate(var(--r,-3deg));animation:pop .45s var(--ease)}
+  .pane.ready{background:radial-gradient(circle at 50% 58%,#ffe2a1 0,#f3ac4f 42%,#a95a1c 100%);
+    box-shadow:0 0 0 .3cqw #ffd27a,0 0 5cqw 1cqw rgba(255,180,80,.55);animation:glow 2.6s ease-in-out infinite}
+  .pane.ready.past{background:radial-gradient(circle at 50% 58%,#f4d39a 0,#d8913f 50%,#8a4a17 100%);animation:none;box-shadow:0 0 0 .3cqw #e8b867}
+  .pane.ready .d{color:#5a2c10}
+  .pane.ready .env{width:72%;height:auto;margin-top:2cqw;filter:drop-shadow(0 2px 3px rgba(80,30,0,.45));position:relative;z-index:1}
+  .pane.ready .tag{position:relative;z-index:1;margin-top:1.4cqw;font-family:"Noto Sans KR",sans-serif;font-size:max(9px,2.5cqw);font-weight:700;
+    color:#5a2c10;background:#fbf1dc;padding:.25em .7em;border-radius:.6em;box-shadow:0 1px 2px rgba(0,0,0,.25);white-space:nowrap}
+  @keyframes glow{0%,100%{box-shadow:0 0 0 .3cqw #ffd27a,0 0 3cqw .5cqw rgba(255,180,80,.4)}50%{box-shadow:0 0 0 .3cqw #ffe3a6,0 0 7cqw 1.6cqw rgba(255,190,90,.7)}}
+
+  /* 이미 연 창: 종이 위에 그날의 흔적 */
+  .pane.lit{background:var(--paper);background-size:270px;color:var(--ink);align-items:stretch;padding:2cqw 1.6cqw 0;text-align:left}
+  .pane.lit .d{font-size:3.4cqw;margin:0;color:#9a7b55}
+  .pane.lit .t{font-family:"Nanum Pen Script",cursive;font-size:4.6cqw;line-height:1.05;margin-top:1cqw;color:var(--ink);
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:break-word}
+  .pane.lit .who{position:absolute;right:-8%;bottom:-4%;width:46%;height:auto}
+  .pane.lit .pol{display:block;margin:auto;width:84%;background:#fffdf8;padding:3% 3% 0;box-shadow:0 2px 5px -1px rgba(60,35,10,.45);transform:rotate(var(--r,-3deg))}
   .pane.lit .pol i{display:block;aspect-ratio:1/1;background:var(--tone,#cfd8e3);position:relative;overflow:hidden}
-  .pane.lit .pol i img{position:absolute;left:50%;bottom:-10%;width:74%;height:auto;transform:translateX(-50%)}
-  .pane.lit .pol em{display:block;font-style:normal;font-family:"Nanum Pen Script",cursive;font-size:clamp(13px,3.6vw,17px);line-height:1.4;text-align:center;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  @keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}
+  .pane.lit .pol i img{position:absolute;left:50%;bottom:-10%;width:74%;transform:translateX(-50%)}
+  .pane.lit .pol i img.real{left:0;bottom:0;width:100%;height:100%;object-fit:cover;transform:none}
+  .pane.lit .pol em{display:block;font-style:normal;font-family:"Nanum Pen Script",cursive;font-size:3.6cqw;line-height:1.4;text-align:center;color:var(--ink)}
+  .pane.lit.xmas{box-shadow:inset 0 0 0 .5cqw var(--berry)}
 
-  .status{display:flex;align-items:flex-end;gap:14px;margin-top:26px}
-  .status img{width:60px;flex-shrink:0}
-  .status b{display:block;font-size:16px;color:#fff}
-  .status span{font-size:13px;color:var(--text-soft)}
+  /* 밤톨 안내 */
+  .guide{position:absolute;top:73.2%;left:5%;right:5%;display:flex;align-items:center;gap:2cqw}
+  .guide img{width:24cqw;height:auto;flex-shrink:0;filter:drop-shadow(0 3cqw 3cqw rgba(0,0,0,.4))}
+  .bubble{position:relative;flex:1;background:var(--paper);background-size:270px;color:var(--ink);border-radius:9cqw;padding:4cqw 5cqw 3.6cqw;
+    box-shadow:0 2cqw 5cqw -1cqw rgba(0,0,0,.55)}
+  .bubble::before{content:"";position:absolute;left:-2.6cqw;top:50%;width:5cqw;height:5cqw;background:#f4ecdc;transform:translateY(-50%) rotate(45deg);border-radius:.6cqw}
+  .bubble b{display:block;position:relative;font-family:"Nanum Pen Script",cursive;font-weight:400;font-size:5.8cqw;line-height:1.15}
+  .bubble b u{text-decoration:none;background:linear-gradient(transparent 82%,rgba(163,53,42,.75) 82%,rgba(163,53,42,.75) 92%,transparent 92%)}
+  .bubble span{display:block;position:relative;font-family:"Nanum Pen Script",cursive;font-size:4.4cqw;color:var(--ink-soft);margin-top:1cqw}
 
-  .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;width:calc(100% - 40px);max-width:420px;background:var(--paper);color:var(--ink);border-radius:10px;padding:12px 14px;display:flex;gap:12px;align-items:center;box-shadow:0 20px 40px -16px rgba(0,0,0,.6);transition:opacity .25s,transform .35s var(--ease);z-index:70}
+  .foot{position:absolute;top:89.4%;left:8%;right:8%;text-align:center}
+  .foot .holly{display:flex;align-items:center;gap:2cqw;justify-content:center}
+  .foot .holly i{flex:1;height:1px;background:rgba(226,207,174,.35)}
+  .foot .holly img{width:8cqw;height:auto}
+  .foot p{font-family:"Gowun Batang",serif;font-size:4.2cqw;color:#ecdcbf;margin-top:2.4cqw}
+  .foot small{display:block;font-size:max(10px,2.8cqw);color:#b79c7b;margin-top:1.4cqw}
+
+  .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translate(-50%,16px);opacity:0;pointer-events:none;
+    width:calc(100% - 32px);max-width:420px;background:var(--paper);background-size:270px;color:var(--ink);border-radius:14px;padding:12px 14px;
+    display:flex;gap:12px;align-items:center;box-shadow:0 18px 40px -14px rgba(0,0,0,.7);transition:opacity .25s,transform .35s var(--ease);z-index:70}
   .toast.show{opacity:1;transform:translate(-50%,0)}
   .toast img{width:44px;flex-shrink:0}
-  .toast p{font-size:14px}
+  .toast p{font-size:14px;line-height:1.45}
   .toast p b{display:block}
 
-  .scrim{position:fixed;inset:0;z-index:60;background:rgba(15,10,6,.7);display:none;align-items:flex-end;justify-content:center;padding:14px}
+  /* 편지 시트 */
+  .scrim{position:fixed;inset:0;z-index:60;background:rgba(14,7,3,.62);display:none;align-items:flex-end;justify-content:center}
   .scrim.show{display:flex}
-  .sheet{position:relative;width:100%;max-width:440px;background:var(--paper);color:var(--ink);border-radius:4px;padding:26px 22px 20px;animation:rise .45s var(--ease);max-height:92dvh;overflow:auto;box-shadow:0 30px 60px -20px rgba(0,0,0,.6)}
-  @keyframes rise{from{transform:translateY(30px) rotate(-1.5deg);opacity:0}to{transform:none;opacity:1}}
-  .sheet .bt{position:absolute;right:14px;top:-52px;width:70px}
-  .label{font-size:12px;font-weight:700;color:var(--berry)}
-  .ph{margin-top:14px;aspect-ratio:4/3;background:var(--paper-2);border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted);font-size:13px;text-align:center;gap:2px;padding:14px;outline:1.5px dashed #cbb999;outline-offset:-10px}
-  .ph strong{color:var(--ink);font-size:14px}
-  .msg{font-family:"Nanum Pen Script",cursive;font-size:31px;line-height:1.18;margin-top:16px;white-space:pre-line}
-  .sign{font-size:12px;color:var(--muted);margin-top:16px;padding-top:10px;border-top:1px dashed #d8c9ad}
-  .close{margin-top:18px;width:100%;min-height:48px;font:inherit;font-weight:700;font-size:15px;border:0;border-radius:8px;background:var(--ink);color:var(--paper);cursor:pointer}
+  .sheet{position:relative;width:min(100%,480px);max-height:92dvh;overflow:auto;overscroll-behavior:contain;background:var(--paper);background-size:540px;color:var(--ink);
+    border-radius:26px 26px 0 0;padding:14px 22px calc(22px + env(safe-area-inset-bottom));box-shadow:0 -20px 50px -20px rgba(0,0,0,.6);animation:rise .45s var(--ease)}
+  @keyframes rise{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
+  .grab{width:44px;height:5px;border-radius:9px;background:#d6c6a8;margin:0 auto 6px}
+  .x{position:absolute;right:10px;top:10px;width:44px;height:44px;display:grid;place-items:center;color:var(--ink)}
+  .x svg{width:22px;height:22px}
+  .s-holly{display:flex;align-items:center;gap:10px;margin:8px 18px 0}
+  .s-holly i{flex:1;height:1px;background:#cdb995}
+  .s-holly img{width:40px}
+  .s-title{font-family:"Gowun Batang",serif;font-weight:700;font-size:30px;text-align:center;margin-top:6px;letter-spacing:.02em}
+  .s-date{display:flex;align-items:center;gap:12px;justify-content:center;font-family:"Gowun Batang",serif;font-size:16px;color:#5b4330;margin-top:4px}
+  .s-date i{width:56px;height:1px;background:#cdb995}
 
-  .demo-bar{margin-top:40px;padding-top:18px;border-top:1px dashed #4a3424}
-  .demo-bar label{display:flex;justify-content:space-between;font-size:13px;color:var(--text-soft)}
-  .demo-bar label b{color:var(--gold)}
-  .demo-bar input{width:100%;margin-top:10px;accent-color:var(--gold);min-height:28px}
-  .demo-bar p{font-size:12px;color:#8f7d64;margin-top:6px}
-  .pane.lit .pol i img.real{left:0;bottom:0;width:100%;height:100%;object-fit:cover;transform:none}
-  .ph img{width:100%;height:100%;object-fit:cover;border-radius:3px}
-  .ph.real{padding:0;outline:0;background:none}
-  .err{margin-top:30px;padding:22px;border-radius:8px;background:var(--room-2);text-align:center;color:var(--text-soft)}
-  .err img{width:90px;margin:0 auto 10px;display:block}
-  .err b{display:block;color:#fff;font-size:16px;margin-bottom:4px}
-  .made{margin-top:28px;text-align:center;font-size:12px;color:#8f7d64}
+  .envstage{display:flex;flex-direction:column;align-items:center;padding:14px 0 6px}
+  .envbtn{position:relative;width:min(84%,330px);aspect-ratio:1000/900;margin-top:-16%}
+  .envbtn img{position:absolute;inset:0;width:100%;height:100%;transition:opacity .28s,transform .5s var(--ease)}
+  .envbtn .open{opacity:0}
+  .envbtn .to{position:absolute;left:0;right:0;top:83%;text-align:center;font-family:"Nanum Pen Script",cursive;font-size:24px;line-height:1;color:#4a3020;transition:opacity .2s}
+  .envbtn:hover .closed{transform:translateY(-3px)}
+  .envstage.opening .closed,.envstage.opening .to{opacity:0}
+  .envstage.opening .open{opacity:1}
+  .envstage .cap{font-family:"Nanum Pen Script",cursive;font-size:25px;margin-top:8px;padding:0 6px;background:linear-gradient(transparent 80%,rgba(163,53,42,.55) 80%,rgba(163,53,42,.55) 88%,transparent 88%)}
+  .envstage .hint{font-size:13px;color:var(--ink-soft);margin-top:10px}
+
+  .letter{display:none;padding-top:16px;animation:fadeup .5s var(--ease)}
+  .letter.show{display:block}
+  @keyframes fadeup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .photo{background:#fffdf9;padding:8px;box-shadow:0 8px 22px -10px rgba(60,35,10,.55);margin:0 2px}
+  .photo div{aspect-ratio:4/3;background:#efe6d4;display:grid;place-items:center;color:var(--ink-soft);font-size:13px;overflow:hidden}
+  .photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .msg{font-family:"Nanum Pen Script",cursive;font-size:27px;line-height:1.6;margin:22px 10px 0;white-space:pre-line;color:#2e1c10}
+  .rule{display:block;width:62%;height:10px;margin:10px auto 0}
+  .sign{font-family:"Nanum Pen Script",cursive;font-size:22px;text-align:right;margin:8px 12px 0;color:#3a2516}
+  .back{display:block;width:100%;min-height:54px;margin-top:22px;border-radius:16px;background:linear-gradient(180deg,#7a4428,#5f321c);color:#fbf1dc;
+    font-family:"Gowun Batang",serif;font-size:18px;box-shadow:0 8px 18px -10px rgba(60,25,8,.8)}
+  .back:active{transform:translateY(1px)}
+
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-  @keyframes pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
 </style>
 </head>
 <body>
-<div class="app">
-  <div class="head">
-    <div>
-      <h1 class="to" id="to">열두 밤</h1>
-      <p class="from" id="from"></p>
-    </div>
-    <div class="count"><b id="nights">12</b><span id="nightsLabel">크리스마스까지</span></div>
+<main class="scene" id="scene">
+  <p class="demo-chip" id="demoChip" hidden>예시 화면이에요</p>
+  <header class="hd">
+    <h1 id="to">열두 밤</h1>
+    <div class="row"><span id="from"></span><i></i><b>12.14 — 12.25</b></div>
+  </header>
+  <h2 class="headline" id="headline">창문을 여는 중이에요</h2>
+  <div class="bow" aria-hidden="true"><i></i><img src="assets/art/ribbon.webp" alt=""><i></i></div>
+
+  <section class="window" aria-label="열두 개의 창">
+    <div class="transom" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div class="panes" id="panes"></div>
+  </section>
+
+  <div class="guide" id="guide" aria-live="polite">
+    <img id="guideImg" src="assets/wave.png" alt="" width="200" height="254">
+    <p class="bubble"><b id="say1">잠깐만 기다려 줘.</b><span id="say2">창문을 열고 있어.</span></p>
   </div>
 
-  <div class="window">
-    <div class="frame"><div class="panes" id="panes"></div></div>
-    <div class="sill"></div>
-  </div>
-
-  <div class="status">
-    <img id="stage" src="assets/flame1.png" alt="" width="200" height="254">
-    <div><b id="statusTitle"></b><span id="statusSub"></span></div>
-  </div>
-
-  <p class="made">열두 밤 · yeoldubam.store</p>
-</div>
+  <footer class="foot">
+    <div class="holly" aria-hidden="true"><i></i><img src="assets/art/holly.webp" alt=""><i></i></div>
+    <p>앱 설치 없이, 매일 밤 한 통씩</p>
+    <small>열두 밤 · yeoldubam.store</small>
+  </footer>
+</main>
 
 <div class="toast" id="toast" role="status" aria-live="polite">
   <img src="assets/sleepy.png" alt="">
   <p id="toastText"></p>
 </div>
 
-<div class="scrim" id="scrim" role="dialog" aria-modal="true" aria-labelledby="sheetLabel">
-  <div class="sheet">
-    <img class="bt" src="assets/letter.png" alt="">
-    <div class="label" id="sheetLabel"></div>
-    <div class="ph" id="sheetPhoto"></div>
-    <p class="msg" id="sheetMsg"></p>
-    <p class="sign" id="sheetSign"></p>
-    <button class="close" id="sheetClose" type="button">닫기</button>
+<div class="scrim" id="scrim" role="dialog" aria-modal="true" aria-labelledby="sTitle">
+  <div class="sheet" id="sheet">
+    <div class="grab" aria-hidden="true"></div>
+    <button class="x" id="sheetX" type="button" aria-label="닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 5l14 14M19 5 5 19"/></svg></button>
+    <div class="s-holly" aria-hidden="true"><i></i><img src="assets/art/holly.webp" alt=""><i></i></div>
+    <h3 class="s-title" id="sTitle">첫 번째 밤</h3>
+    <p class="s-date"><i></i><span id="sDate">12월 14일</span><i></i></p>
+
+    <div class="envstage" id="envStage">
+      <button class="envbtn" id="envBtn" type="button" aria-label="봉투 열기">
+        <img class="closed" src="assets/art/env-closed.webp" alt="">
+        <img class="open" src="assets/art/env-open.webp" alt="">
+        <span class="to" id="envTo"></span>
+      </button>
+      <p class="cap">너에게만 전하고 싶은 말</p>
+      <p class="hint">봉투를 눌러 열어 보세요</p>
+    </div>
+
+    <div class="letter" id="letter">
+      <div class="photo" id="photo" hidden><div id="photoBox">사진을 불러오고 있어요</div></div>
+      <p class="msg" id="msg"></p>
+      <svg class="rule" viewBox="0 0 200 10" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 Q60 2 120 5 T198 4" fill="none" stroke="#b5654b" stroke-width="2" stroke-linecap="round" opacity=".75"/></svg>
+      <p class="sign" id="sign"></p>
+      <button class="back" id="backBtn" type="button">창가로 돌아가기</button>
+    </div>
   </div>
 </div>
 
 <script>
   /* 편지는 링크의 # 뒤 코드·열쇠로 서버에서 받아 와요. 아직 안 열린 날의 편지는 서버가 내주지 않아요 */
   const API = "https://script.google.com/macros/s/AKfycbycLLIUftHpdpFSdSkWetdcImSmhytF2ATBIdR7V4Lj8Zu5F-AQnRivqqREFDRkpriz0A/exec";
-  let GIFT = null, KEYNAME = "twelve-opened", CODE = "", KEY = "";
-  const PHOTOS = {}, LOADING = {};
-  function api(extra){ return fetch(API + "?code=" + encodeURIComponent(CODE) + "&key=" + encodeURIComponent(KEY) + (extra || "")).then(r => r.json()); }
-  function loadPhoto(d){
-    if (PHOTOS[d] || LOADING[d]) return;
-    LOADING[d] = true;
-    api("&day=" + d).then(j => { if (j.ok) { PHOTOS[d] = j.data; render(); if (lastDay === d && scrim.classList.contains("show")) fillPhoto(d); } })
-      .catch(() => {}).finally(() => { LOADING[d] = false; });
-  }
-  const EMPTY_MSG = "오늘 밤은 편지 대신\n촛불을 켜 둘게.\n내일 또 만나.";
-
-
-  const LOOK = [
-    ["wave","#cfdbe6"],["happy","#ead6c3"],["letter","#e9cdb4"],["sleepy","#c9d3d8"],
-    ["flame2","#d9d3e6"],["excited","#e6dcc4"],["happy","#f0d6cf"],["flame3","#c6cbdd"],
-    ["wave","#d6e0cf"],["letter","#e6d2dc"],["excited","#ead8be"],["scarf","#ebcac3"]
-  ];
+  const $ = id => document.getElementById(id);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-  function titleOf(item){ return item.t || (item.msg ? String(item.msg).split("\n")[0] : "촛불 켜 둔 밤"); }
-  function litHTML(item, i, photo){
-    const [who, tone] = LOOK[i] || LOOK[0];
-    if (photo && item.photo) loadPhoto(item.d);
-    const title = esc(titleOf(item));
-    const num = '<span class="d">' + item.d + '</span>';
-    if (photo) {
-      const r = (i % 3 - 1) * 3 || -2;
-      return '<span class="pol" style="--r:' + r + 'deg;--tone:' + tone + '"><i>' + (item.photo && PHOTOS[item.d] ? '<img class="real" src="' + PHOTOS[item.d] + '" alt="">' : '<img src="assets/' + who + '.png" alt="">') + '</i><em>12.' + item.d + '</em></span>';
-    }
-    return num + '<span class="t">' + title + '</span><img class="who" src="assets/' + who + '.png" alt="">';
-  }
-  /* 서명: 받침 있으면 '이가', 없으면 '가', 한글이 아니면 이름만 */
+  const ORD = ["첫","두","세","네","다섯","여섯","일곱","여덟","아홉","열","열한","열두"];
+  const EMPTY_MSG = "오늘 밤은 편지 대신\n촛불을 켜 둘게.\n내일 또 만나.";
+  const LOOK = [["wave","#cfdbe6"],["happy","#ead6c3"],["letter","#e9cdb4"],["sleepy","#c9d3d8"],["flame2","#d9d3e6"],["excited","#e6dcc4"],
+                ["happy","#f0d6cf"],["flame3","#c6cbdd"],["wave","#d6e0cf"],["letter","#e6d2dc"],["excited","#ead8be"],["scarf","#ebcac3"]];
+  const DEMO = [
+    "오늘부터 크리스마스까지\n매일 한 통씩 열어봐.\n첫 번째는 그냥, 보고 싶다는 말.",
+    "처음 만난 날 너 목도리\n거꾸로 하고 왔던 거 기억나?\n나는 그때부터였어.",
+    "네가 좋아하는 김치찌개집\n지나가다가 네 생각났어.\n다음 주에 같이 가자.",
+    "올해 제일 웃겼던 날.\n우산 하나로 둘 다 젖었던 날.",
+    "시험 기간 버텨줘서 고마워.\n오늘은 일찍 자기. 약속.",
+    "주말에 갈 카페 골라놨어.\n힌트는 창가 자리.",
+    "한 번도 말 안 한 거.\n네 웃음소리 녹음해 둔 거 있어.\n힘들 때 몰래 들어.",
+    "오늘 동지래.\n밤이 제일 긴 날이니까\n통화도 제일 길게 하자.",
+    "올해 네가 해준 말 중에\n제일 힘이 됐던 거.\n'천천히 해도 돼.'",
+    "내일이 이브야.\n입을 옷 골라놨어?\n나는 너랑 맞춰 입을 거야.",
+    "오늘 저녁 7시,\n우리 처음 만난 곳에서\n기다릴게.",
+    "메리 크리스마스.\n열두 밤 동안 열어줘서 고마워.\n내년에도 이렇게\n하루씩 기다리게 해줄게."
+  ];
+
+  let GIFT = null, CODE = "", KEY = "", KEYNAME = "twelve-opened", opened = new Set(), lastDay = null, toastTimer = null;
+  const PHOTOS = {}, LOADING = {};
+
   function signOf(name){
     const n = String(name).trim(), c = n.charCodeAt(n.length - 1);
     if (c < 0xAC00 || c > 0xD7A3) return n;
     return n + ((c - 0xAC00) % 28 ? "이가" : "가");
   }
-  const ordinal = ["첫","두","세","네","다섯","여섯","일곱","여덟","아홉","열","열한","열두"];
-  const $ = id => document.getElementById(id);
-  const panes = $("panes"), scrim = $("scrim");
-  let lastDay = null, toastTimer = null;
-
-  let opened = new Set();
   function load(){ try { opened = new Set(JSON.parse(localStorage.getItem(KEYNAME) || "[]")); } catch(e) {} }
   function save(){ try { localStorage.setItem(KEYNAME, JSON.stringify([...opened])); } catch(e) {} }
+  function api(extra){ return fetch(API + "?code=" + encodeURIComponent(CODE) + "&key=" + encodeURIComponent(KEY) + (extra || "")).then(r => r.json()); }
+  function loadPhoto(d){
+    if (GIFT.demo || PHOTOS[d] || LOADING[d]) return;
+    LOADING[d] = true;
+    api("&day=" + d).then(j => { if (j.ok) { PHOTOS[d] = j.data; render(); if (lastDay === d) fillPhoto(d); } })
+      .catch(() => {}).finally(() => { LOADING[d] = false; });
+  }
+  function titleOf(item){ return item.msg ? String(item.msg).split("\n")[0] : "촛불 켜 둔 밤"; }
+  const nightName = d => d === 25 ? "크리스마스 밤" : ORD[d - 14] + " 번째 밤";
 
-  function today(){
-    if (GIFT && typeof GIFT.today === "number") return GIFT.today;
-    const now = new Date();
-    if (now.getFullYear() > GIFT.year || now.getMonth() > 11) return 26;
-    if (now.getMonth() < 11) return 0;
-    return now.getDate();
+  function litHTML(item, i){
+    const [who, tone] = LOOK[i];
+    if (GIFT.photos) {
+      if (item.photo) loadPhoto(item.d);
+      const r = (i % 3 - 1) * 3 || -2;
+      const inner = item.photo && PHOTOS[item.d] ? '<img class="real" src="' + PHOTOS[item.d] + '" alt="">' : '<img src="assets/' + who + '.png" alt="">';
+      return '<span class="pol" style="--r:' + r + 'deg;--tone:' + tone + '"><i>' + inner + '</i><em>12.' + item.d + '</em></span>';
+    }
+    return '<span class="d">' + item.d + '</span><span class="t">' + esc(titleOf(item)) + '</span><img class="who" src="assets/' + who + '.png" alt="">';
   }
 
   function render(){
-    const t = today();
+    const t = GIFT.today, panes = $("panes");
     panes.innerHTML = "";
     GIFT.days.forEach((item, i) => {
+      const locked = item.d > t, isOpen = !locked && opened.has(item.d), ready = !locked && !isOpen;
       const b = document.createElement("button");
-      const xmas = item.d === 25;
-      const isOpen = opened.has(item.d) && item.d <= t;
-      const ready = !isOpen && item.d <= t;
-      const locked = item.d > t;
-      b.type = "button";
-      b.className = "pane" + (xmas ? " xmas" : "") + (isOpen ? " lit" : "") + (ready ? " ready" : "") + (locked ? " locked" : "");
-      b.dataset.day = item.d;
-      b.setAttribute("aria-label", "12월 " + item.d + "일, " + (locked ? "아직 잠겨 있음" : isOpen ? "열었음" : "열 수 있음"));
-      const sub = ready ? (item.d === t ? "오늘" : "열 수 있어요") : (xmas ? "Christmas" : "12월");
-      b.innerHTML = isOpen ? litHTML(item, i, GIFT.photos)
-        : '<span class="d">' + item.d + '</span><span class="m">' + sub + '</span>';
+      b.type = "button"; b.dataset.day = item.d;
+      b.className = "pane" + (item.d === 25 ? " xmas" : "") + (locked ? " locked" : isOpen ? " lit" : " ready" + (item.d < t ? " past" : ""));
+      b.setAttribute("aria-label", "12월 " + item.d + "일, " + (locked ? "아직 잠겨 있어요" : isOpen ? "다시 읽기" : "편지 열기"));
+      if (isOpen) b.innerHTML = litHTML(item, i);
+      else if (ready) b.innerHTML = '<span class="d">' + item.d + '</span><img class="env" src="assets/art/env-closed.webp" alt=""><span class="tag">' + (item.d === t ? "오늘 · 열기" : "열기") + '</span>';
+      else b.innerHTML = '<span class="d">' + item.d + '</span>' + (item.d === 25 ? '<img class="seal" src="assets/art/seal.webp" alt="">' : "");
       b.addEventListener("click", () => locked ? showLocked(item.d) : openDay(i));
       panes.appendChild(b);
     });
 
-    const n = GIFT.days.filter(x => opened.has(x.d) && x.d <= t).length;
-    $("stage").src = n >= 12 ? "assets/scarf.png" : n >= 8 ? "assets/flame3.png" : n >= 4 ? "assets/flame2.png" : "assets/flame1.png";
-    const left = Math.max(0, 25 - t);
-    // 첫 창(12월 14일 0시, 한국 시간)까지 남은 날
-    const wait = Math.max(1, Math.ceil((Date.UTC(GIFT.year, 11, 13, 15) - Date.now()) / 86400000));
-    $("nights").textContent = t >= 25 ? "오늘" : t < 14 ? wait + "일" : left + "밤";
-    $("nightsLabel").textContent = t >= 25 ? "메리 크리스마스" : t < 14 ? "첫 창까지" : "크리스마스까지";
-    if (t < 14) {
-      $("statusTitle").textContent = wait <= 1 ? "오늘 밤 12시에 첫 창이 열려요" : "아직은 모두 잠들어 있어요";
-      $("statusSub").textContent = "12월 14일 밤 12시에 첫 번째 창이 열려요";
-    } else if (n === 12) {
-      $("statusTitle").textContent = "열두 밤을 모두 열었어요";
-      $("statusSub").textContent = "지난 편지는 언제든 다시 읽을 수 있어요";
-    } else {
-      const waiting = GIFT.days.filter(x => x.d <= t && !opened.has(x.d)).length;
-      $("statusTitle").textContent = waiting ? "오늘 열 수 있는 창이 " + waiting + "개 있어요" : "오늘 편지까지 다 읽었어요";
-      $("statusSub").textContent = waiting ? "반짝이는 창을 눌러보세요" : "내일 밤 12시에 다음 창이 열려요";
+    // 헤드라인과 밤톨 말
+    const target = (GIFT.days.find(x => x.d <= t && !opened.has(x.d)) || {}).d;
+    const wait = Math.max(1, Math.ceil((Date.UTC(2026, 11, 13, 15) - Date.now()) / 86400000));
+    let h, a, b, img = "wave";
+    if (t < 14) { h = "첫 편지까지<br>" + wait + "일 남았어요"; a = "12월 14일 밤에<br>첫 창이 열려."; b = "그때 꼭 다시 와 줘."; img = "sleepy"; }
+    else if (t <= 25 && !opened.has(Math.min(t, 25))) { h = "오늘, " + (t === 25 ? "마지막" : ORD[t - 14] + " 번째") + " 편지가<br>도착했어요"; }
+    else if (t < 25) { h = "내일 밤, 다음 편지가<br>찾아와요"; }
+    else if (t === 25) { h = "메리 크리스마스"; }
+    else { h = "열두 밤의 편지를<br>다시 읽을 수 있어요"; }
+    if (t >= 14) {
+      if (target) { a = "불 켜진 <u>" + target + "일 창</u>을 눌러봐."; b = target === t ? "하루에 한 통씩, 마음이 열려." : "놓친 편지도 그대로 남아 있어."; img = "wave"; }
+      else if (t < 25) { a = "내일 밤에<br>다음 창이 열려."; b = "읽은 편지는 다시 눌러 볼 수 있어."; img = "happy"; }
+      else { a = "열두 밤을 모두 열었어."; b = "지난 편지는 언제든 다시 읽을 수 있어."; img = "scarf"; }
     }
+    $("headline").innerHTML = h;
+    $("say1").innerHTML = a; $("say2").textContent = b;
+    $("guideImg").src = "assets/" + img + ".png";
   }
 
   function showLocked(d){
     $("toastText").innerHTML = "<b>아직 잠들어 있어요</b>12월 " + d + "일 밤 12시에 열려요.";
-    const el = $("toast");
-    el.classList.add("show");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => el.classList.remove("show"), 2200);
+    const el = $("toast"); el.classList.add("show");
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove("show"), 2200);
   }
 
   function openDay(i){
-    const item = GIFT.days[i];
+    const item = GIFT.days[i], first = !opened.has(item.d);
     lastDay = item.d;
-    opened.add(item.d); save();
-    $("sheetLabel").textContent = item.d === 25 ? "크리스마스, 마지막 편지" : ordinal[i] + " 번째 밤";
-    const ph = $("sheetPhoto");
-    if (item.photo) { ph.style.display = "flex"; fillPhoto(item.d); loadPhoto(item.d); }
-    else ph.style.display = "none";
-    $("sheetMsg").textContent = item.msg || EMPTY_MSG;
-    $("sheetSign").textContent = "12월 " + item.d + "일, " + signOf(GIFT.from);
-    scrim.classList.add("show");
-    $("sheetClose").focus();
-    render();
+    $("sTitle").textContent = nightName(item.d);
+    $("sDate").textContent = "12월 " + item.d + "일";
+    $("envTo").textContent = GIFT.to + "에게";
+    $("msg").textContent = item.msg || EMPTY_MSG;
+    $("sign").textContent = "12월 " + item.d + "일, " + signOf(GIFT.from);
+    const ph = $("photo");
+    if (item.photo) { ph.hidden = false; fillPhoto(item.d); loadPhoto(item.d); } else ph.hidden = true;
+    const stage = $("envStage"), letter = $("letter");
+    stage.classList.remove("opening");
+    if (first) { stage.style.display = ""; letter.classList.remove("show"); }
+    else { stage.style.display = "none"; letter.classList.add("show"); }
+    $("scrim").classList.add("show");
+    $("sheet").scrollTop = 0;
+    (first ? $("envBtn") : $("backBtn")).focus({ preventScroll: true });
+  }
+
+  function openEnvelope(){
+    const stage = $("envStage");
+    stage.classList.add("opening");
+    opened.add(lastDay); save();
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setTimeout(() => {
+      stage.style.display = "none";
+      $("letter").classList.add("show");
+      $("backBtn").focus({ preventScroll: true });
+      render();
+    }, reduce ? 0 : 650);
   }
 
   function fillPhoto(d){
-    const ph = $("sheetPhoto");
-    if (PHOTOS[d]) { ph.className = "ph real"; ph.innerHTML = '<img src="' + PHOTOS[d] + '" alt="12월 ' + d + '일 사진">'; }
-    else { ph.className = "ph"; ph.innerHTML = "<span>사진을 불러오고 있어요</span>"; }
+    const box = $("photoBox");
+    box.innerHTML = PHOTOS[d] ? '<img src="' + PHOTOS[d] + '" alt="12월 ' + d + '일 사진">' : "사진을 불러오고 있어요";
   }
 
   function closeSheet(){
-    scrim.classList.remove("show");
-    const el = panes.querySelector('[data-day="' + lastDay + '"]');
-    if (el) el.focus();
+    $("scrim").classList.remove("show");
+    const el = $("panes").querySelector('[data-day="' + lastDay + '"]');
+    if (el) el.focus({ preventScroll: true });
   }
-  $("sheetClose").addEventListener("click", closeSheet);
-  scrim.addEventListener("click", e => { if (e.target === scrim) closeSheet(); });
-  document.addEventListener("keydown", e => { if (e.key === "Escape" && scrim.classList.contains("show")) closeSheet(); });
+  $("envBtn").addEventListener("click", openEnvelope);
+  $("backBtn").addEventListener("click", closeSheet);
+  $("sheetX").addEventListener("click", closeSheet);
+  $("scrim").addEventListener("click", e => { if (e.target === $("scrim")) closeSheet(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && $("scrim").classList.contains("show")) closeSheet(); });
 
   function fail(msg){
-    document.querySelector(".window").outerHTML = '<div class="err"><img src="assets/sleepy.png" alt=""><b>창문이 열리지 않아요</b>' + msg + '</div>';
-    document.querySelector(".status").remove(); document.querySelector(".count").remove();
+    $("headline").textContent = "열두 밤";
+    $("guideImg").src = "assets/sleepy.png";
+    $("say1").textContent = "창문이 열리지 않아.";
+    $("say2").innerHTML = msg;
   }
-  async function boot(){
-    const m = location.hash.match(/^#([A-Za-z0-9]{6})\.([A-Za-z0-9]{8,})$/);
-    if (!m) return fail("받은 링크를 끝까지 그대로 열어 주세요.<br>주소 맨 뒤 # 부분까지 있어야 열려요.");
-    CODE = m[1].toUpperCase(); KEY = m[2];
-    $("statusTitle").textContent = "창문을 여는 중이에요";
-    let j;
-    try { j = await api(""); } catch (e) { return fail("인터넷 연결을 확인하고 다시 열어 주세요."); }
-    if (!j || !j.ok) return fail("받은 링크를 끝까지 그대로 열어 주세요.<br>그래도 안 되면 보내 준 사람에게 알려 주세요.");
+
+  function setup(j){
     const got = {}; (j.days || []).forEach(x => got[x.d] = x);
-    GIFT = { to: j.to, from: j.from, photos: j.photos, today: j.today, year: 2026, days: [] };
+    GIFT = { to: j.to, from: j.from, photos: !!j.photos, today: j.today, demo: !!j.demo, days: [] };
     for (let d = 14; d <= 25; d++) GIFT.days.push(got[d] || { d: d, msg: "", photo: false });
-    KEYNAME = "twelve-opened-" + CODE;
     load();
     $("to").textContent = GIFT.to + "에게";
     $("from").textContent = signOf(GIFT.from) + " 보낸 열두 밤";
     document.title = GIFT.to + "에게 · 열두 밤";
     render();
+  }
+
+  async function boot(){
+    // 예시: /g/#demo 또는 /g/#demo-18 (그날까지 열린 상태), /g/#demo-18-open (14~16일은 이미 읽음)
+    const dm = location.hash.match(/^#demo(?:-(\d+))?(-open)?$/);
+    if (dm) {
+      const t = Math.min(26, Math.max(0, Number(dm[1] || 14)));
+      KEYNAME = "twelve-opened-demo";
+      try { localStorage.removeItem(KEYNAME); } catch(e) {}
+      if (dm[2]) { opened = new Set([14,15,16]); save(); }
+      $("demoChip").hidden = false;
+      return setup({ demo: true, to: "서연", from: "하준", photos: false, today: t,
+        days: DEMO.map((m, i) => ({ d: 14 + i, msg: m, photo: false })).filter(x => x.d <= t) });
+    }
+    const m = location.hash.match(/^#([A-Za-z0-9]{6})\.([A-Za-z0-9]{8,})$/);
+    if (!m) return fail("받은 링크를 끝까지 그대로 열어 줘.<br>주소 맨 뒤 # 부분까지 있어야 해.");
+    CODE = m[1].toUpperCase(); KEY = m[2]; KEYNAME = "twelve-opened-" + CODE;
+    let j;
+    try { j = await api(""); } catch (e) { return fail("인터넷 연결을 확인하고<br>다시 열어 줘."); }
+    if (!j || !j.ok) return fail("링크를 끝까지 그대로 열어 줘.<br>안 되면 보낸 사람에게 알려 줘.");
+    setup(j);
   }
   boot();
 </script>
